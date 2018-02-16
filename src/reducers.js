@@ -1,6 +1,6 @@
 import {combineReducers} from "redux"
 import immutable from "object-path-immutable"
-import {load, bake} from "./jsonloader.js"
+import {unbake, bake} from "./jsonloader.js"
 
 function del(x) {
     return (arr) => {
@@ -414,11 +414,13 @@ const reduce = combineReducers({
     navigations
 });
 
-function cyoaApp(state, action) {
-    if(action.type == 'CYOA_LOAD') {
-        return reduce(load(action.cyoa),action);
-    }
-    return reduce(state, action);
-}
+function cyoaApp(state, action) { switch(action.type) {
+    case 'CYOA_LOAD':
+        return reduce(unbake(action.cyoa),action);
+    case 'CYOA_LOAD_DIRECT':
+        return reduce(action.state, action);
+    default:
+        return reduce(state, action);
+}}
 
 export default cyoaApp;

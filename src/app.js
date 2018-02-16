@@ -146,14 +146,14 @@ import ReactDOM from "react-dom"
 import {createStore} from "redux"
 import {Provider} from "react-redux"
 import cyoaApp from "./reducers.js"
-import {load, bake} from "./jsonloader.js"
+import {unbake, bake} from "./jsonloader.js"
 import {save} from "./save.js"
 
 const reducer = module.hot
         ? (state, action) => { return cyoaApp(state, action); }
         : cyoaApp
 ;
-const normalizedData = load(testCyoa);
+const normalizedData = unbake(testCyoa);
 let store = createStore(reducer, normalizedData);
 
 window.store = store;
@@ -168,7 +168,7 @@ function pure(WrappedComponent) {
 
 window.bake = () => bake(store.getState());
 
-window.load = (cyoa) => {
+window.unbake = (cyoa) => {
         store.dispatch({type: 'CYOA_LOAD', cyoa});
 };
 
