@@ -6,6 +6,7 @@ import Button from "./button.js"
 import RequirementList from "./requirementlist.js"
 import VarModList from "./varmodlist.js"
 import CardImgEditable from "./cardimgeditable.js"
+import Collapse from "./collapse.js"
 import {genId} from "../util.js"
 
 function getOption(state, id) {
@@ -47,19 +48,21 @@ class Option extends React.PureComponent {
                         onChange={this.props.updateText}
                     />
                 </p>
-                <RequirementList
-                    singleColumn
-                    list={desc.requirements}
-                    add={this.props.addRequirement}
-                    delete={this.props.deleteRequirement}
-                />
+                <Collapse label="Settings:">
+                    <RequirementList
+                        singleColumn
+                        list={desc.requirements}
+                        add={this.props.addRequirement}
+                        delete={this.props.deleteRequirement}
+                    />
 
-                <VarModList
-                    singleColumn
-                    list={desc.varMods}
-                    add={this.props.addVarMod}
-                    delete={this.props.deleteVarMod}
-                />
+                    <VarModList
+                        singleColumn
+                        list={desc.varMods}
+                        add={this.props.addVarMod}
+                        delete={this.props.deleteVarMod}
+                    />
+                </Collapse>
             </div>
             <ul className="list-group list-group-flush">
                 {desc.upgrades.map(id =>

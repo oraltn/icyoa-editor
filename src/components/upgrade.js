@@ -2,6 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 import RequirementList from "./requirementlist.js"
 import VarModList from "./varmodlist.js"
+import Collapse from "./collapse.js"
 import {genId} from "../util.js"
 
 import TextEntry from "./textentry.js"
@@ -46,18 +47,21 @@ class Upgrade extends React.PureComponent {
                         </p>
                     </div>
                 </div>
-                <RequirementList
-                    singleColumn
-                    list={desc.requirements}
-                    add={this.props.addRequirement}
-                    delete={this.props.deleteRequirement}
-                />
-                <VarModList
-                    singleColumn
-                    list={desc.varMods}
-                    add={this.props.addVarMod}
-                    delete={this.props.deleteVarMod}
-                />
+
+                <Collapse label="Settings:">
+                    <RequirementList
+                        singleColumn
+                        list={desc.requirements}
+                        add={this.props.addRequirement}
+                        delete={this.props.deleteRequirement}
+                    />
+                    <VarModList
+                        singleColumn
+                        list={desc.varMods}
+                        add={this.props.addVarMod}
+                        delete={this.props.deleteVarMod}
+                    />
+                </Collapse>
             </li>
         ;
     }

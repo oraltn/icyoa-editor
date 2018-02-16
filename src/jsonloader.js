@@ -37,7 +37,6 @@ const unformatSceneNumber = (scene, state) => {
 }
 
 export function unbake(data) {
-    console.log(data);
     const normalizedData = normalize(data.cyoa, schemas.cyoa).entities;
     return immutable(normalizedData)
         .update('navigations', l => mapValues(l, o =>

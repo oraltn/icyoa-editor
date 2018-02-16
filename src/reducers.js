@@ -171,6 +171,9 @@ function choices(state = {}, action) {
         case 'CHOICE_TEXT': return immutable.set(state,
             `${action.id}.content.text`, action.text
         );
+        case 'CHOICE_LIMIT': return immutable.set(state,
+            `${action.id}.settings.limit`, action.limit
+        );
         default: return state;
     }
 }

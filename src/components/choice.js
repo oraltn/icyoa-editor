@@ -6,9 +6,11 @@ import Button from "./button.js"
 import TextEntry from "./textentry.js"
 import TextField from "./textfield.js"
 import AddButton from "./addbutton.js"
+import NumberField from "./numberfield.js"
 import RequirementList from "./requirementlist.js"
 import VarModList from "./varmodlist.js"
 import ReplacementList from "./replacementlist.js"
+import Collapse from "./collapse.js"
 import {genId} from "../util.js"
 
 function getChoice(state, id) {
@@ -58,23 +60,38 @@ class Choice extends React.PureComponent {
                         />
                     </p>
                 </div>
+                <div className="w-100"></div>
             </div>
 
-            <RequirementList
-                list={desc.requirements}
-                add={this.props.addRequirement}
-                delete={this.props.deleteRequirement}
-            />
-            <VarModList
-                list={desc.varMods}
-                add={this.props.addVarMod}
-                delete={this.props.deleteVarMod}
-            />
-            <ReplacementList
-                list={desc.replacements}
-                add={this.props.addReplacement}
-                delete={this.props.deleteReplacement}
-            />
+
+            <Collapse label="Settings:">
+                <div className="row align-items-end">
+                    <div className="col-auto">
+                        <label>Limit:</label>
+                    </div>
+                    <div className="col-auto">
+                        <NumberField value={desc.settings.limit}
+                            onChange={this.props.updateLimit}
+                        />
+                    </div>
+                </div>
+
+                <RequirementList
+                    list={desc.requirements}
+                    add={this.props.addRequirement}
+                    delete={this.props.deleteRequirement}
+                />
+                <VarModList
+                    list={desc.varMods}
+                    add={this.props.addVarMod}
+                    delete={this.props.deleteVarMod}
+                />
+                <ReplacementList
+                    list={desc.replacements}
+                    add={this.props.addReplacement}
+                    delete={this.props.deleteReplacement}
+                />
+            </Collapse>
 
             <div className="row">
                 <div className="col">
@@ -131,7 +148,12 @@ Choice = connect(
             type: 'CHOICE_TEXT',
             id: ownProps.id,
             text
-        })}
+        })},
+        updateLimit: limit => dispatch({
+            type: 'CHOICE_LIMIT',
+            id: ownProps.id,
+            limit
+        })
     })
 )(Choice);
 

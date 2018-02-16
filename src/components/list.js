@@ -16,11 +16,9 @@ const list = (label, s) => Component => { return function List(props) {
         </div>
         <div className="row">
             {props.list.map(id =>
-                // <div className="row" key={id}>
-                    <div className={`${colClass}`} key={id}>
-                        <Component key={id} id={id} delete={props.delete} />
-                    </div>
-                // </div>
+                <div className={`${colClass}`} key={id}>
+                    <Component key={id} id={id} delete={props.delete} />
+                </div>
             )}
         </div>
     </div>;

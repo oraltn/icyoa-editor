@@ -11,6 +11,8 @@ import NavigationList from "./navigationlist.js"
 import TextEntry from "./textentry.js"
 import Button from "./button.js"
 import AddButton from "./addbutton.js"
+import Collapse from "./collapse.js"
+
 import {genId} from "../util.js"
 
 function getScene(state, id) {
@@ -28,23 +30,25 @@ function Scene(props) {
             value={desc.content.title}
         /></h1>
 
-        <RequirementList
-            list={desc.requirements}
-            add={props.addRequirement}
-            delete={props.deleteRequirement}
-        />
+        <Collapse label="Settings:">
+            <RequirementList
+                list={desc.requirements}
+                add={props.addRequirement}
+                delete={props.deleteRequirement}
+            />
 
-        <VarModList
-            list={desc.varMods}
-            add={props.addVarMod}
-            delete={props.deleteVarMod}
-        />
+            <VarModList
+                list={desc.varMods}
+                add={props.addVarMod}
+                delete={props.deleteVarMod}
+            />
 
-        <ReplacementList
-            list={desc.replacements}
-            add={props.addReplacement}
-            delete={props.deleteReplacement}
-        />
+            <ReplacementList
+                list={desc.replacements}
+                add={props.addReplacement}
+                delete={props.deleteReplacement}
+            />
+        </Collapse>
 
         {choiceElements}
         <Button className="btn-primary"

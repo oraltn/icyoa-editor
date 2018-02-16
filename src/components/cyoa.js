@@ -7,6 +7,7 @@ import TabbedScenes from "./tabbedscenes.js"
 import ReplacementList from "./replacementlist.js"
 import SaveButton from "./savebutton.js"
 import LoadButton from "./loadbutton.js"
+import Collapse from "./collapse.js"
 import {genId} from "../util.js"
 
 function getCyoa(state, id) {
@@ -27,42 +28,33 @@ function Cyoa(props) {
                 </div>
             </div>
         </div></div>
-        <div className="row align-items-center">
-            <div className="col-auto">
-                <label>Variables:</label>
+
+        <Collapse label="Settings:">
+            <div className="row align-items-center">
+                <div className="col-auto">
+                    <label>Variables:</label>
+                </div>
+                <div className="col-auto">
+                    <AddButton onClick={props.addVarDef} />
+                </div>
             </div>
-            <div className="col-auto">
-                <AddButton onClick={props.addVarDef} />
+            <div className="row">
+                <div className="col-auto">
+                    {desc.varDefs.map(id =>
+                        <VarDef key={id} id={id} delete={props.deleteVarDef}/>
+                    )}
+                </div>
             </div>
-        </div>
-        <div className="row">
-            <div className="col-auto">
-                {desc.varDefs.map(id =>
-                    <VarDef key={id} id={id} delete={props.deleteVarDef}/>
-                )}
-            </div>
-        </div>
-        <ReplacementList
-            list={desc.replacements}
-            add={props.addReplacement}
-            delete={props.deleteReplacement}
-        />
+            <ReplacementList
+                list={desc.replacements}
+                add={props.addReplacement}
+                delete={props.deleteReplacement}
+            />
+        </Collapse>
         <TabbedScenes list={desc.scenes}
             add={props.addScene}
             delete={props.deleteScene}
         />
-        {/* <ul className="nav nav-tabs">
-            <li className="nav-item">
-                <a className="nav-link active" href="#">Asdf</a>
-            </li>
-        </ul>
-        {desc.scenes.map((id) =>
-            <div className="row" key={id}>
-                <div className="col">
-                    <Scene id={id} />
-                </div>
-            </div>
-        )} */}
     </div>
 }
 Cyoa = connect(
