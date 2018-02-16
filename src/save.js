@@ -19,9 +19,14 @@ export function save(state) {
     let _updatedState = immutable(state);
 
     optionList.forEach(id => {
-        const fileName = `${counter++}.png`
-        images.push({fileName, data: state.options[id].content.image.split(",")[1]});
-        _updatedState = _updatedState.set(`options.${id}.content.image`, fileName);
+        const base64 = state.options[id].content.image.split(",")[1];
+        if (base64) {
+            const fileName = `${counter++}.png`
+            images.push({fileName, data: base64});
+            _updatedState = _updatedState.set(`options.${id}.content.image`, fileName);
+        } else {
+            // _updatedState = _updatedState.set(`options.${id}.content.image`, "");
+        }
     });
 
     const updatedState = _updatedState.value();
@@ -49,6 +54,11 @@ export async function load(blob) {
     let state = unbake(cyoaData);
     await Promise.all(imagePromises);
     return immutable.update(state, 'options', options => mapValues(options, option => {
-        return immutable.set(option, 'content.image', imageData[option.content.image]);
+        let imgPath = option.content.image;
+        if (imageData[imgPath]) {
+            return immutable.set(option, 'content.image', imageData[imgPath]);
+        } else {
+            return option;
+        }
     }));
 }
