@@ -5,6 +5,7 @@ import VarDef from "./vardef.js"
 import AddButton from "./addbutton.js"
 import TabbedScenes from "./tabbedscenes.js"
 import ReplacementList from "./replacementlist.js"
+import SaveButton from "./savebutton.js"
 import {genId} from "../util.js"
 
 function getCyoa(state, id) {
@@ -15,6 +16,7 @@ function Cyoa(props) {
     const desc = props.desc;
 
     return <div className="container">
+        <SaveButton />
         <div className="row align-items-center">
             <div className="col-auto">
                 <label>Variables:</label>
