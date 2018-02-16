@@ -27,7 +27,7 @@ export default class Collapse extends React.PureComponent {
                     : []
                 }
                 <div className="col-auto">
-                    <Button className="btn-primary btn-sm"
+                    <Button className="btn-sm"
                         onClick={this.handleClick}
                     >
                         {this.state.show ? <span>Hide</span> : <span>Show</span>}
